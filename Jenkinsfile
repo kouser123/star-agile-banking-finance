@@ -7,7 +7,7 @@ pipeline {
     stage('Git checkout') {
       steps {
          echo 'This is for cloning the gitrepo'
-         git branch: 'main', url: https:'//github.com/kouser123/star-agile-banking-finance.git'
+         git branch: 'master', url: https:'//github.com/kouser123/star-agile-banking-finance.git'
                           }
             }
     stage('Create a Package') {
