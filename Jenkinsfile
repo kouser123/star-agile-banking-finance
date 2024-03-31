@@ -18,7 +18,7 @@ pipeline {
             }
      stage('Publish the HTML Reports') {
       steps {
-          publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/finance-me/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+          publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/finance-me/targ
                         }
             }
       stage('Create a Docker image from the Package finance-me.jar file') {
@@ -40,7 +40,7 @@ pipeline {
             }
      stage('Ansbile config and Deployment') {
       steps {
-        ansiblePlaybook credentialsId: 'ansible-ssh', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml', vaultTmpPath: ''
+        ansiblePlaybook credentialsId: 'ansiblessh', disableHostKeyChecking: true, installation: 'ansible', inventory: 'etc/ansible/hosts', playbook: 'ansible-playbook.yml', vaultTmpPath: ''
                                }
             }
    
