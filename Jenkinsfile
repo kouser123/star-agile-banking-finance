@@ -16,14 +16,14 @@ pipeline {
          sh 'mvn package'
                              }
             }
-     stage('Publish the HTML Reports') {
+       stage('Publish the HTML Reports') {
       steps {
-          publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/finance-me/targ
+          publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/InsureMeProject/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
                         }
             }
-      stage('Create a Docker image from the Package finance-me.jar file') {
+      stage('Create a Docker image from the Package InsureMeProject.jar file') {
       steps {
-        sh 'docker build -t samad12/insure-me-app:2.0 .'
+        sh 'docker build -t samad12/insure-me-app:1.0 .'
                     }
             }
       stage('Login to Dockerhub') {
@@ -35,17 +35,15 @@ pipeline {
             }
      stage('Push the Docker image') {
       steps {
-        sh 'docker push samad12/insure-me-app:2.0'
+        sh 'docker push samad12/insure-me-app:1.0'
                                }
             }
-     stage('Ansbile config and Deployment') {
+      stage('Ansbile config and Deployment') {
       steps {
-        ansiblePlaybook credentialsId: 'ansiblessh', disableHostKeyChecking: true, installation: 'ansible', inventory: 'etc/ansible/hosts', playbook: 'ansible-playbook.yml', vaultTmpPath: ''
+        ansiblePlaybook credentialsId: 'ansible-ssh', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible.yml', vaultTmpPath: ''
                                }
             }
-   
-
-  
    }
-
 }
+  
+   
